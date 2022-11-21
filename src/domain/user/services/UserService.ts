@@ -1,5 +1,5 @@
-class UserService {
-    checkForNull(object, res) {
+export class UserService {
+    static checkForNull(object: Object,): void {
         Object.entries(object).forEach(entry => {
             if (entry[1] === null) {
                 throw new TypeError(`O atributo ${entry[0]} foi enviado como nulo`);
@@ -7,19 +7,22 @@ class UserService {
         });
     }
 
-    checkForTyping(object) {
-        let hasError = false;
-        Object.entries(object).forEach(entry => {
-            const value = entry[1];
-            let defaultError = `O tipo do atributo ${entry[0]} foi enviado como algo diferente de `;
-            switch (entry[0]) {
+    static checkForTyping(object: Object): void {
+        let hasError: boolean = false;
+        Object.entries(object).forEach((entry: any) => {
+            const value: any = entry[1];
+            const key: string = entry[0];
+            let defaultError : string = `O tipo do atributo ${key} foi enviado como algo diferente de `;
+            switch (key) {
                 case "birthdate":
                     if (typeof value !== "string") {
                         defaultError += `Date`;
                         hasError = true;
                     }
-                    let date = new Date(value);
-                    if (isNaN(date)) {
+                    let parts: Array<number> = value.split('-');
+                    let date: Date = new Date(parts[0], parts[1] - 1, parts[2]);
+
+                    if (isNaN(date.getDate())) {
                         throw new Error('A data inserida é inválida');
                     }
                     break;
@@ -50,18 +53,18 @@ class UserService {
         );
     }
 
-    checkIfEmailsMatch(email, confirmation) {
+    static checkIfEmailsMatch(email: String, confirmation: String): void {
         if (email.trim() !== confirmation.trim()) {
             throw new Error("Os emails inseridos tem de ser idênticos.")
         }
     }
 
-    checkIfCpfIsValid(cpf) {
-        let arrayCpfStrings = cpf.replaceAll(/[.-]/g, "").split('');
+    static checkIfCpfIsValid(cpf: String): void {
+        let arrayCpfStrings = cpf.replace(/[.-]/g, "").split('');
         let arrayCpfNumbers = arrayCpfStrings.map(function (string) {
             return parseInt(string, 10);
         });
-        
+
         let firstVerificationNumber = 0;
         firstVerificationNumber = arrayCpfNumbers.reduce((previous, current, index) => {
             if (index < 9) {
@@ -70,7 +73,6 @@ class UserService {
             return previous;
         }, 0);
 
-        console.log(firstVerificationNumber);
         firstVerificationNumber = (firstVerificationNumber * 10) % 11;
         firstVerificationNumber = firstVerificationNumber == 10 ? 0 : firstVerificationNumber;
 
@@ -92,6 +94,4 @@ class UserService {
             throw new Error("CPF não é válido.");
         }
     }
-}
-
-module.exports = new UserService;;
+};
