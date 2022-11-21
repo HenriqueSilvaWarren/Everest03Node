@@ -1,0 +1,44 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\henrique.silva_warre\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add https://yarn.pm/express
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\ProgramData\chocolatey\bin;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;%NVM_HOME%;%NVM_SYMLINK%;C:\Users\henrique.silva_warre\AppData\Local\Microsoft\WindowsApps;C:\Users\henrique.silva_warre\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\henrique.silva_warre\AppData\Local\Programs\Git\cmd;C:\Flutter\bin;C:\Users\henrique.silva_warre\AppData\Local\GitHubDesktop\bin;C:\Users\henrique.silva_warre\AppData\Roaming\npm;C:\Users\henrique.silva_warre\AppData\Roaming\nvm;C:\Program Files\nodejs
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.0.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: self signed certificate in certificate chain
+      at TLSSocket.onConnectSecure (node:_tls_wrap:1536:34)
+      at TLSSocket.emit (node:events:365:28)
+      at TLSSocket._finishInit (node:_tls_wrap:950:8)
+      at TLSWrap.ssl.onhandshakedone (node:_tls_wrap:722:12)
+
+npm manifest: 
+  {
+    "name": "desafio-everest",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "nodemon ./src/index.js"
+    },
+    "main": "index.js",
+    "author": "Junior Alves <junior.alves@warren.com.br>",
+    "license": "MIT",
+    "dependencies": {
+      "express": "^4.17.3",
+      "nodemon": "^2.0.15"
+    },
+    "repository": "git@github.com:HenriqueSilvaWarren/Everest03Node.git"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

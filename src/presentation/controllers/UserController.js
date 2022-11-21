@@ -1,8 +1,7 @@
 class UserController {
-
-    handle(req, res, next) {
-        res.send("Hello World!");
+    handle(res) {
+        res.send('A rota para se testar o funcionamento é localhost:3000/customer');
     }
 }
 
-module.exports = new UserController();
+exports.UserController = new UserController();;

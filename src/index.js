@@ -1,9 +1,12 @@
 const express = require('express');
+
 const routes = require('./presentation/Routes');
 
 const app = express();
 
-app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+ 
 app.use(routes)
 
 app.listen(3000, () => {
