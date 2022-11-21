@@ -1,88 +1,94 @@
 class UserService {
     checkForNull(object, res) {
-        var values = Object.entries(object);
-        var i;
-        for (i = 0; i < values.length; i++) {
-            if (values[i][1] === null) {
-                res.status(400).send(`O atributo ${values[i][0]} foi enviado como nulo`);
-                throw new TypeError("Pelo menos um atributo foi enviado como nulo");
+        Object.entries(object).forEach(entry => {
+            if (entry[1] === null) {
+                throw new TypeError(`O atributo ${entry[0]} foi enviado como nulo`);
             }
-        };
+        });
     }
 
-    checkForTyping(object, res) {
-        let values = Object.entries(object);
-        let i;
+    checkForTyping(object) {
         let hasError = false;
-        for (i = 0; i < values.length; i++) {
-            let defaultError = `O tipo do atributo ${values[i][0]} foi enviado como algo diferente de `;
-            switch (values[i][0]) {
+        Object.entries(object).forEach(entry => {
+            const value = entry[1];
+            let defaultError = `O tipo do atributo ${entry[0]} foi enviado como algo diferente de `;
+            switch (entry[0]) {
                 case "birthdate":
-                    if (!(values[i][1] instanceof Date)) {
-                        res.status(400).send(defaultError + `Date`);
+                    if (typeof value !== "string") {
+                        defaultError += `Date`;
                         hasError = true;
+                    }
+                    let date = new Date(value);
+                    if (isNaN(date)) {
+                        throw new Error('A data inserida é inválida');
                     }
                     break;
                 case "email_sms":
                 case "whatsapp":
-                    if (typeof values[i][1] !== "boolean") {
-                        res.status(400).send(defaultError + `booleano`);
+                    if (typeof value !== "boolean") {
+                        defaultError += `booleano`;
                         hasError = true;
                     }
                     break;
                 case "number":
-                    if (typeof values[i][1] !== "number") {
-                        res.status(400).send(defaultError + `número`);
+                    if (typeof value !== "number") {
+                        defaultError += `número`;
                         hasError = true;
                     }
                     break;
                 default:
-                    if ((typeof (values[i][1])) !== "string") {
-                        res.status(400).send(defaultError + `string`);
+                    if ((typeof (value)) !== "string") {
+                        defaultError += `string`;
                         hasError = true;
                     }
                     break;
             }
             if (hasError) {
-                throw new TypeError("Pelo menos um dado foi enviado incorretamente.");
+                throw new TypeError(defaultError);
             }
         }
+        );
     }
 
-    checkIfEmailsMatch(email, confirmation, res) {
+    checkIfEmailsMatch(email, confirmation) {
         if (email.trim() !== confirmation.trim()) {
-            res.status(500).send("Os emails inseridos tem de ser idênticos.");
             throw new Error("Os emails inseridos tem de ser idênticos.")
         }
     }
 
-    checkIfCpfIsValid(cpf, res) {
-        var arrayCpfStrings = cpf.replaceAll(/[.-]/g, "").split('');
-        var arrayCpfNumbers = arrayCpfStrings.map(function (string) {
+    checkIfCpfIsValid(cpf) {
+        let arrayCpfStrings = cpf.replaceAll(/[.-]/g, "").split('');
+        let arrayCpfNumbers = arrayCpfStrings.map(function (string) {
             return parseInt(string, 10);
         });
-        var i;
-        var firstVerificationNumber = 0;
-        for (i = 10; i > 1; i--) {
-            firstVerificationNumber += arrayCpfNumbers[10 - i] * i;
-        }
+        
+        let firstVerificationNumber = 0;
+        firstVerificationNumber = arrayCpfNumbers.reduce((previous, current, index) => {
+            if (index < 9) {
+                return previous + (current * (10 - index));
+            }
+            return previous;
+        }, 0);
+
+        console.log(firstVerificationNumber);
         firstVerificationNumber = (firstVerificationNumber * 10) % 11;
         firstVerificationNumber = firstVerificationNumber == 10 ? 0 : firstVerificationNumber;
 
         if (firstVerificationNumber != arrayCpfNumbers[9]) {
-            res.status(500).send("CPF não é válido.");
             throw new Error("CPF não é válido.");
         }
 
-        var secondVerificationNumber = 0;
-        for (i = 11; i > 1; i--) {
-            secondVerificationNumber += arrayCpfNumbers[11 - i] * i;
-        }
+        let secondVerificationNumber = 0;
+        secondVerificationNumber = arrayCpfNumbers.reduce((previous, current, index) => {
+            if (index < 10) {
+                return previous + (current * (11 - index));
+            }
+            return previous;
+        }, 0);
         secondVerificationNumber = (secondVerificationNumber * 10) % 11;
         secondVerificationNumber = secondVerificationNumber == 10 ? 0 : secondVerificationNumber;
 
         if (secondVerificationNumber != arrayCpfNumbers[10]) {
-            res.send("CPF não é válido.");
             throw new Error("CPF não é válido.");
         }
     }
