@@ -1,5 +1,5 @@
 export class UserService {
-    static checkForNull(object: Object,): void {
+    static checkForNull(object: Record<string, unknown>,): void {
         Object.entries(object).forEach(entry => {
             if (entry[1] === null) {
                 throw new TypeError(`O atributo ${entry[0]} foi enviado como nulo`);
@@ -7,25 +7,28 @@ export class UserService {
         });
     }
 
-    static checkForTyping(object: Object): void {
-        let hasError: boolean = false;
-        Object.entries(object).forEach((entry: any) => {
-            const value: any = entry[1];
-            const key: string = entry[0];
-            let defaultError : string = `O tipo do atributo ${key} foi enviado como algo diferente de `;
+    static checkForTyping(object: Record<string, unknown>): void {
+        let hasError = false;
+        Object.entries(object).forEach((entry: Array<unknown>) => {
+            const value: unknown = entry[1];
+            const key: string = entry[0] as string;
+            let defaultError = `O tipo do atributo ${key} foi enviado como algo diferente de `;
             switch (key) {
-                case "birthdate":
+                case "birthdate": {
                     if (typeof value !== "string") {
                         defaultError += `Date`;
                         hasError = true;
                     }
-                    let parts: Array<number> = value.split('-');
-                    let date: Date = new Date(parts[0], parts[1] - 1, parts[2]);
+                    const parts: Array<number> = (value as string).split('-').map((value: string) => {
+                        return parseInt(value);
+                    });
+                    const date: Date = new Date(parts[0], parts[1] - 1, parts[2]);
 
                     if (isNaN(date.getDate())) {
                         throw new Error('A data inserida é inválida');
                     }
                     break;
+                }
                 case "email_sms":
                 case "whatsapp":
                     if (typeof value !== "boolean") {
@@ -53,15 +56,15 @@ export class UserService {
         );
     }
 
-    static checkIfEmailsMatch(email: String, confirmation: String): void {
+    static checkIfEmailsMatch(email: string, confirmation: string): void {
         if (email.trim() !== confirmation.trim()) {
             throw new Error("Os emails inseridos tem de ser idênticos.")
         }
     }
 
-    static checkIfCpfIsValid(cpf: String): void {
-        let arrayCpfStrings = cpf.replace(/[.-]/g, "").split('');
-        let arrayCpfNumbers = arrayCpfStrings.map(function (string) {
+    static checkIfCpfIsValid(cpf: string): void {
+        const arrayCpfStrings = cpf.replace(/[.-]/g, "").split('');
+        const arrayCpfNumbers = arrayCpfStrings.map(function (string) {
             return parseInt(string, 10);
         });
 
@@ -94,4 +97,4 @@ export class UserService {
             throw new Error("CPF não é válido.");
         }
     }
-};
+}

@@ -16,17 +16,20 @@ class UserService {
             const key = entry[0];
             let defaultError = `O tipo do atributo ${key} foi enviado como algo diferente de `;
             switch (key) {
-                case "birthdate":
+                case "birthdate": {
                     if (typeof value !== "string") {
                         defaultError += `Date`;
                         hasError = true;
                     }
-                    let parts = value.split('-');
-                    let date = new Date(parts[0], parts[1] - 1, parts[2]);
+                    const parts = value.split('-').map((value) => {
+                        return parseInt(value);
+                    });
+                    const date = new Date(parts[0], parts[1] - 1, parts[2]);
                     if (isNaN(date.getDate())) {
                         throw new Error('A data inserida é inválida');
                     }
                     break;
+                }
                 case "email_sms":
                 case "whatsapp":
                     if (typeof value !== "boolean") {
@@ -58,8 +61,8 @@ class UserService {
         }
     }
     static checkIfCpfIsValid(cpf) {
-        let arrayCpfStrings = cpf.replace(/[.-]/g, "").split('');
-        let arrayCpfNumbers = arrayCpfStrings.map(function (string) {
+        const arrayCpfStrings = cpf.replace(/[.-]/g, "").split('');
+        const arrayCpfNumbers = arrayCpfStrings.map(function (string) {
             return parseInt(string, 10);
         });
         let firstVerificationNumber = 0;
@@ -89,4 +92,3 @@ class UserService {
     }
 }
 exports.UserService = UserService;
-;

@@ -6,22 +6,24 @@ import express = require("express");
 export class PostUserController {
     static handle(req: express.Request, res: express.Response): void {
         try {
-            let user: Record<string, any> = req.body;
+            const user: Record<string, unknown> = req.body;
             UserService.checkForNull(user);
             UserService.checkForTyping(user);
 
-            let parts: Array<number> = user.birthdate.split('-');
+            const parts: Array<number> = (user.birthdate as string).split('-').map(value => {
+                return parseInt(value);
+            });
             user.birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
 
-            UserService.checkIfEmailsMatch(user.email, user.email_confirmation);
-            UserService.checkIfCpfIsValid(user.cpf);
+            UserService.checkIfEmailsMatch(user.email as string, user.email_confirmation as string);
+            UserService.checkIfCpfIsValid(user.cpf as string);
 
             Users.push(user);
             res.send(`Usuário criado com sucesso!`);
-        } catch (error: any) {
-            console.log(error.name);
-            console.log(error.message);
-            res.status(400).send(error.message);
+        } catch (error: unknown) {
+            console.log((error as Record<string, string>).name);
+            console.log((error as Record<string, string>).message);
+            res.status(400).send((error as Record<string, string>).message);
         }
     }
 }

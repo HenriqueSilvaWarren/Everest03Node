@@ -6,10 +6,12 @@ const UserService_1 = require("../../domain/user/services/UserService");
 class PostUserController {
     static handle(req, res) {
         try {
-            let user = req.body;
+            const user = req.body;
             UserService_1.UserService.checkForNull(user);
             UserService_1.UserService.checkForTyping(user);
-            let parts = user.birthdate.split('-');
+            const parts = user.birthdate.split('-').map(value => {
+                return parseInt(value);
+            });
             user.birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
             UserService_1.UserService.checkIfEmailsMatch(user.email, user.email_confirmation);
             UserService_1.UserService.checkIfCpfIsValid(user.cpf);
