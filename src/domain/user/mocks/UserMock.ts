@@ -1,2 +1,2 @@
-export const Users : Array<Object> = [];
+export const Users : Array<unknown> = [];
 
