@@ -1,9 +1,9 @@
 import { UserService } from '../../domain/user/services/UserService';
 
-import express = require("express");
+import {Request, Response} from "express";
 
 export class PostUserController {
-    static handle(req: express.Request, res: express.Response): void {
+    static handle(req: Request, res: Response): void {
         try {
             const body: Record<string, unknown> = req.body;
 
