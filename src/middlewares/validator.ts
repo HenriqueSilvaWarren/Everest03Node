@@ -8,7 +8,7 @@ export const validator = curryN(
         try {
             Joi.assert(req.body, schema);
             next();
-        } catch (error: unknown) {
+        } catch (error) {
             res.status(400).send((error as Record<string, string>).message);
         }
     }
