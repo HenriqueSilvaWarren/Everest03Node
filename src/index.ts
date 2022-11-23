@@ -1,5 +1,5 @@
 import express from 'express';
-import { router as routes } from './presentation/Routes';
+import { router, customerRouter } from './presentation/Routes';
 
 const app = express();
 
@@ -9,6 +9,7 @@ app.use(express.urlencoded({
 
 app.use(express.json());
 
-app.use(routes);
+app.use("/", router);
+app.use("/customer", customerRouter);
 
 app.listen(3000);

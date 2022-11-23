@@ -1,8 +1,9 @@
-import { UserSchema } from "../../../presentation/controllers/schemas/UserSchema";
-import Joi = require("joi");
+
+import { Users } from "../mocks/UserMock";
+
 
 export class UserService {
-    static checkEverything(object: Record<string, unknown>): void {
-        Joi.assert(object, UserSchema);
+    static saveUser(object: Record<string, unknown>): void {
+        Users.push(object);
     }
 }
