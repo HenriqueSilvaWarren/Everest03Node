@@ -2,8 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { curryN } from 'ramda';
 import Joi from 'joi';
 
+const numberOfParametersForTheValidator = 4;
+
 export const validator = curryN(
-    4,
+    numberOfParametersForTheValidator,
     (schema: Joi.Schema, req: Request, res: Response, next: NextFunction) => {
         try {
             Joi.assert(req.body, schema);
