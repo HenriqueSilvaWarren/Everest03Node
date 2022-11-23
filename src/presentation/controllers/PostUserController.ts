@@ -15,7 +15,7 @@ export class PostUserController {
             UserService.saveUser(body);
 
             res.status(201).send(`Usuário criado com sucesso!`);
-        } catch (error: unknown) {
+        } catch (error) {
             res.status(400).send((error as Record<string, string>).message);
         }
     }
