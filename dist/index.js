@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Routes_1 = require("./presentation/Routes");
 const app = (0, express_1.default)();
-app.use(express_1.default.urlencoded({ extended: false }));
+app.use(express_1.default.urlencoded({
+    extended: false
+}));
 app.use(express_1.default.json());
 app.use(Routes_1.router);
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
+app.listen(3000);
