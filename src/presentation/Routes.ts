@@ -8,13 +8,16 @@ import { PostUserController } from "./controllers/PostUserController";
 import { GetUserController } from "./controllers/GetUserController";
 import { validator } from '../middlewares/validator';
 import { UserSchema } from "./controllers/schemas/UserSchema";
-import { container } from "tsyringe";
-const postUserController = container.resolve(PostUserController);
+import { customContainer } from "../di/index";
 
-router.get("/", UserController.handle);
+const postUserController = customContainer.resolve(PostUserController);
+const userController = new UserController();
+const getUserController = new GetUserController();
 
-customerRouter.post("/", validator(UserSchema), postUserController.handle);
+router.get("/", userController.handle);
 
-customerRouter.get("/", GetUserController.handle,);
+customerRouter.post("/", validator(UserSchema), (req, res) => postUserController.handle(req, res),);
+
+customerRouter.get("/", getUserController.handle,);
 
 

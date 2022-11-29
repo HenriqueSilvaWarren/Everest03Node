@@ -1,10 +1,16 @@
-
+import { inject, injectable } from "tsyringe";
+import { BaseRepository } from "../../../infra/repositories/BaseRepository"
+import UserModel from "../../entities/UserModel";
 import { IUserService } from "../../interfaces/IUserService";
-import { Users } from "../mocks/UserMock";
 
-
+@injectable()
 export class UserService implements IUserService {
-    static saveUser(object: Record<string, unknown>): void {
-        Users.push(object);
+
+    constructor(@inject('UserRepository') private userRepository: BaseRepository<UserModel>) { }
+
+    saveUser(object: Record<string, unknown>): void {
+        const model = new UserModel(object);
+
+        this.userRepository.create(model);
     }
 }

@@ -1,10 +1,12 @@
 import 'reflect-metadata';
-import { container, injectable, inject } from 'tsyringe';
-import { UserService } from '../../domain/user/services/UserService';
+import { injectable, inject } from 'tsyringe';
+
 
 import { Request, Response } from "express";
 import { IUserService } from '../../domain/interfaces/IUserService';
 import { IUserController } from '../interfaces/IUserController';
+
+
 
 @injectable()
 export class PostUserController implements IUserController {
@@ -13,12 +15,11 @@ export class PostUserController implements IUserController {
 
     handle(req: Request, res: Response): void {
         try {
-
             const body: Record<string, unknown> = req.body;
-
             const parts: Array<number> = (body.birthdate as string).split('-').map(value => {
                 return parseInt(value);
             });
+
             body.birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
 
             this.userService.saveUser(body);
@@ -29,5 +30,3 @@ export class PostUserController implements IUserController {
         }
     }
 }
-
-container.registerSingleton<IUserService>('UserService', UserService);

@@ -1,5 +1,3 @@
-
-
 export interface IUserService {
-    static saveUser(object: Record<string, unknown>) : void;
+    saveUser(object: Record<string, unknown>): void;
 }
