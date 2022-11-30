@@ -3,8 +3,8 @@ import { injectable, inject } from 'tsyringe';
 
 
 import { Request, Response } from "express";
-import { IUserService } from '../../domain/interfaces/IUserService';
-import { IUserController } from '../interfaces/IUserController';
+import { IUserService } from '@userInterfaces/IUserService';
+import { IUserController } from '@controlInterfaces/IUserController';
 
 
 

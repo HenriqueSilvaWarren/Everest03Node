@@ -1,5 +1,5 @@
 import express = require("express");
-import { IUserController } from "../interfaces/IUserController";
+import { IUserController } from "@controlInterfaces/IUserController";
 
 export class UserController implements IUserController {
     handle(req: express.Request, res: express.Response): void {
