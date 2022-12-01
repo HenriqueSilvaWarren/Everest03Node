@@ -1,9 +1,9 @@
 import { Users } from '../../domain/user/mocks/UserMock';
-import express = require("express");
+import { Request, Response } from 'express';
+import { IUserController } from '@controlInterfaces/IUserController';
 
-export class GetUserController {
-
-    static handle(req: express.Request, res: express.Response) : void{
+export class GetUserController implements IUserController {
+    handle(req: Request, res: Response): void {
         res.send(Users);
     }
 }
