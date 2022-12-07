@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { Router } from "express";
 import { inject, injectable } from "tsyringe";
 import { CustomerRouter } from "./routers/CustomerRouter";

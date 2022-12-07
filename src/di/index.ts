@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { GetUserController } from 'src/presentation/controllers/GetUserController';
-import { PostUserController } from 'src/presentation/controllers/PostUserController';
-import { CustomerRouter } from 'src/presentation/routers/CustomerRouter';
+import { GetUserController } from '../presentation/controllers/GetUserController';
+import { PostUserController } from '../presentation/controllers/PostUserController';
+import { CustomerRouter } from '../presentation/routers/CustomerRouter';
 import { container } from "tsyringe";
 import UserModel from "../domain/entities/UserModel";
 import { IUserService } from "../domain/interfaces/IUserService";

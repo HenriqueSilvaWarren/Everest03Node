@@ -1,5 +1,6 @@
+import "reflect-metadata";
 import { Router } from "express";
-import { validator } from "src/middlewares/validator";
+import { validator } from "../../middlewares/validator";
 import { inject, injectable } from "tsyringe";
 import { GetUserController } from "../controllers/GetUserController";
 import { PostUserController } from "../controllers/PostUserController";
