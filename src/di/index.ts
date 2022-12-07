@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { container } from "tsyringe";
 import UserModel from "../domain/entities/UserModel";
 import { IUserService } from "../domain/interfaces/IUserService";

@@ -26,7 +26,7 @@ export class PostUserController implements IUserController {
 
             res.status(201).send(`Usuário criado com sucesso!`);
         } catch (error) {
-            res.status(400).send((error as Record<string, string>).message);
+            res.status(500).send((error as Record<string, string>).message);
         }
     }
 }
