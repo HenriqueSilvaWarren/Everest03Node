@@ -7,6 +7,6 @@ describe('Routes', () => {
 
         const router = costumerRouter.setupRouter();
 
-        expect(router).toBe(costumerRouter.setupRouter());
+        expect(router).toBe(customerRouter.setupRouter());
     })
 })
