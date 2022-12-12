@@ -24,7 +24,7 @@ describe('UserRepository', () => {
             const result = repo.create(model);
 
             expect(result).toBe(model);
-            expect(Users[0]).toBe(model);
+            expect(model).toBe(Users[0]);
         })
     })
 });
