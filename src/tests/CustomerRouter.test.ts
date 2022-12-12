@@ -5,7 +5,7 @@ describe('CustomerRouter', () => {
     it('Should return a router when setup is called', () => {
         const customerRouter = customContainer.resolve(CustomerRouter);
 
-        const router = costumerRouter.setup();
+        const router = customerRouter.setup();
 
         expect(router).toBe(costumerRouter.setup());
     })
