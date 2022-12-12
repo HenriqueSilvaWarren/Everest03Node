@@ -8,9 +8,17 @@ export const validator = curryN(
     numberOfParametersForTheValidator,
     (schema: Joi.Schema, req: Request, res: Response, next: NextFunction) => {
         try {
-            Joi.assert(req.body, schema);
+            const validation = schema.validate(req.body, {
+                abortEarly: false,
+                stripUnknown: true,
+                allowUnknown: true,
+            });
+            if (validation.error !== undefined) {
+                throw validation.error
+            }
             next();
-        } catch (error) {
+        }
+        catch (error) {
             res.status(400).send((error as Record<string, string>).message);
         }
     }
