@@ -1,12 +1,9 @@
 import 'reflect-metadata';
 import { injectable, inject } from 'tsyringe';
 
-
 import { Request, Response } from "express";
 import { IUserService } from '@userInterfaces/IUserService';
 import { IUserController } from '@controlInterfaces/IUserController';
-
-
 
 @injectable()
 export class PostUserController implements IUserController {

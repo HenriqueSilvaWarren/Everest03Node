@@ -9,11 +9,12 @@ export class Routes {
 
     constructor(
         @inject('CustomerRouter') private customerRouter: CustomerRouter,
-    ) { }
+    ) {
+
+    }
 
     public setupRouter(): Router {
         this.router.use('/customer', this.customerRouter.setup());
-
         return this.router;
     }
-} 
+}

@@ -4,6 +4,6 @@ import { IUserController } from '@controlInterfaces/IUserController';
 
 export class GetUserController implements IUserController {
     handle(req: Request, res: Response): void {
-        res.send(Users);
+        res.status(200).json(Users);
     }
 }

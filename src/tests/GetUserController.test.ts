@@ -7,7 +7,8 @@ describe('GetUserController', () => {
 
         const mockResponse: Response = {
             status: jest.fn(() => mockResponse),
-            send: jest.fn(),
+            json: jest.fn(),
+            set: jest.fn(),
         } as unknown as Response;
 
         const mockRequest: Request = {
@@ -16,6 +17,7 @@ describe('GetUserController', () => {
 
         controller.handle(mockRequest, mockResponse);
 
-        expect(mockResponse.send).toBeCalledTimes(1);
+        expect(mockResponse.json).toBeCalledTimes(1);
+        expect(mockResponse.status).toBeCalledTimes(1);
     })
 })
