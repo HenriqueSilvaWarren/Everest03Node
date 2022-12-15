@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { curryN } from 'ramda';
 import Joi from 'joi';
+import status from 'http-status';
 
 const numberOfParametersForTheValidator = 4;
 
@@ -13,14 +14,14 @@ export const validator = curryN(
                 stripUnknown: true,
                 allowUnknown: true,
             });
-            
+
             if (validation.error !== undefined) {
                 throw validation.error
             }
             next();
         }
         catch (error) {
-            res.status(400).send((error as Joi.ValidationError).message);
+            res.status(status.BAD_REQUEST).send((error as Joi.ValidationError).message);
         }
     }
 );

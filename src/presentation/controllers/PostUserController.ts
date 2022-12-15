@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { injectable, inject } from 'tsyringe';
-
+import status from 'http-status';
 import { Request, Response } from "express";
 import { IUserService } from '@userInterfaces/IUserService';
 import { IUserController } from '@controlInterfaces/IUserController';
@@ -20,6 +20,6 @@ export class PostUserController implements IUserController {
 
         this.userService.saveUser(body);
 
-        res.status(201).json(`Usuário criado com sucesso!`);
+        res.status(status.CREATED).json(`Usuário criado com sucesso!`);
     }
 }
