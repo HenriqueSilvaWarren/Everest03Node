@@ -11,7 +11,5 @@ describe('CustomerRouter', () => {
 
         expect(router).toBe(customerRouter.setup());
     });
-
-
 });
 

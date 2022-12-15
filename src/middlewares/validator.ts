@@ -13,13 +13,14 @@ export const validator = curryN(
                 stripUnknown: true,
                 allowUnknown: true,
             });
+            
             if (validation.error !== undefined) {
                 throw validation.error
             }
             next();
         }
         catch (error) {
-            res.status(400).send((error as Record<string, string>).message);
+            res.status(400).send((error as Joi.ValidationError).message);
         }
     }
 );
