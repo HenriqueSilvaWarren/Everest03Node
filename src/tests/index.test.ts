@@ -1,6 +1,6 @@
 import app from "../presentation/app";
 import supertest from "supertest";
-
+import status from 'http-status';
 const request = supertest(app);
 
 describe('GET /customer', () => {
@@ -8,7 +8,7 @@ describe('GET /customer', () => {
         const res = await request
             .get('/customer')
             .expect('Content-Type', /json/)
-            .expect(200);
+            .expect(status.OK);
         expect(res.body).toStrictEqual([]);
     })
 });
@@ -33,7 +33,7 @@ describe('POST /customer', () => {
                 "number": 128,
             })
             .expect('Content-Type', /json/)
-        .expect(201);
+            .expect(status.CREATED);
 
         expect(res.text).toStrictEqual('\"Usuário criado com sucesso!\"');
     });
@@ -42,7 +42,7 @@ describe('POST /customer', () => {
         const res = await request
             .post('/customer')
             .expect('Content-Type', "text/html; charset=utf-8")
-            .expect(400);
+            .expect(status.BAD_REQUEST);
 
         expect(res.text).toContain('is required');
     },);
@@ -66,7 +66,7 @@ describe('POST /customer', () => {
                 "number": 128,
             })
             .expect('Content-Type', "text/html; charset=utf-8")
-            .expect(400);
+            .expect(status.BAD_REQUEST);
 
         expect(res.text).toStrictEqual('"email_confirmation" must be [ref:email]');
     });
@@ -88,8 +88,7 @@ describe('POST /customer', () => {
                 "address": 1,
                 "number": 128,
             })
-            
-            .expect(400);
+            .expect(status.BAD_REQUEST);
 
         expect(res.text).toContain('must be a string');
         expect(res.text).not.toContain('must be a int');
@@ -112,7 +111,7 @@ describe('POST /customer', () => {
                 "address": 'Bad Vilbel',
                 "number": 'a',
             })
-            .expect(400);
+            .expect(status.BAD_REQUEST);
 
         expect(res.text).not.toContain('must be a string');
         expect(res.text).toContain('must be a number');
@@ -122,7 +121,7 @@ describe('POST /customer', () => {
         const res = await request
             .post('/customer')
             .send({
-               "full_name": 'Henrique da Silva',
+                "full_name": 'Henrique da Silva',
                 "email": "thiagomoura@gmail.com",
                 "email_confirmation": "thiagomoura@gmail.com",
                 "cpf": "826.057.420-91",
@@ -136,7 +135,7 @@ describe('POST /customer', () => {
                 "address": 'Bad Vilbel',
                 "number": 128,
             })
-            .expect(400);
+            .expect(status.BAD_REQUEST);
 
         expect(res.text).toContain('must be a bool');
     });
