@@ -1,5 +1,5 @@
 import validator from "cpf-cnpj-validator";
-import Joi = require("joi");
+import Joi from "joi";
 
 const joi = Joi.extend(validator);
 
@@ -17,4 +17,6 @@ export const UserSchema = joi.object({
     postal_code: joi.string().required(),
     address: joi.string().required(),
     number: joi.number().required(),
-}).with('email', 'email_confirmation');
+})
+.with('email', 'email_confirmation')
+.required();

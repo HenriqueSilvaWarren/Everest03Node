@@ -13,7 +13,6 @@ export class Routes {
 
     public setupRouter(): Router {
         this.router.use('/customer', this.customerRouter.setup());
-
         return this.router;
     }
-} 
+}

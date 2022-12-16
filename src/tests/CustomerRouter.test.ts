@@ -1,5 +1,7 @@
+
 import { customContainer } from "../di"
 import { CustomerRouter } from "../presentation/routers/CustomerRouter"
+
 
 describe('CustomerRouter', () => {
     it('Should return a router when setup is called', () => {
@@ -8,5 +10,6 @@ describe('CustomerRouter', () => {
         const router = customerRouter.setup();
 
         expect(router).toBe(customerRouter.setup());
-    })
-})
+    });
+});
+
