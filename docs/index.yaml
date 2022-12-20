@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: API para manter Usuários
+  description: API simples para registro e leitura de usuários.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: customer  
+    description: chamadas com relação a manutenção de User
+paths: 
+  /customer:
+    get:
+      tags:
+        - customer
+      summary: Return all customers already registered
+      description: return all customers that have been registered 
+      operationId: getCustomer
+      responses:
+        200:
+          description: A list of Users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    post:              
+      tags:
+        - customer
+      summary: Register a customer
+      description: It's used when the caller wants to register a user inside the database
+      operationId: postCustomer
+      requestBody:
+        description: register a new user inside the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+               
+        required: true
+      responses:
+        200:
+          description: 'User created succesfully!'
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: Usuário criado com sucesso
+        400:
+          description: 'Bad Request, a field must have been sent empty or with the wrong formatting'
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: email must be a valid email          
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        full_name:
+            type: string
+        email:
+            type: string
+        email_confirmation:
+            type: string
+        cpf:
+            type: string
+        cellphone:
+            type: string
+        birthdate:
+          type: string
+        email_sms:
+          type: boolean
+        whatsapp:
+          type: boolean
+        country:
+          type: string
+        city:
+          type: string
+        postal_code:
+          type: string
+        address:
+          type: string
+        number:
+          type: integer 
+      example:
+        full_name: Henrique
+        email: abc@gmail.com
+        email_confirmation: abc@gmail.com
+        cpf: 518.079.260-60
+        cellphone: (96) 98228-1742
+        birthdate: 1993-02-18
+        email_sms: false
+        whatsapp: true
+        country: Brasil
+        city: Rio de Janeiro
+        postal_code: 23535-620
+        address: Barra da Tijuca
+        number: 293
+    
