@@ -40,7 +40,7 @@ paths:
                
         required: true
       responses:
-        200:
+        201:
           description: 'User created succesfully!'
           content:
             text/plain:
@@ -71,6 +71,7 @@ components:
             type: string
         birthdate:
           type: string
+          format: date
         email_sms:
           type: boolean
         whatsapp:
