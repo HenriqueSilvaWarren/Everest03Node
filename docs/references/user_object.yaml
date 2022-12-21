@@ -1,0 +1,28 @@
+type: object
+properties:
+  full_name:
+      type: string
+  email:
+      type: string
+  email_confirmation:
+      type: string
+  cpf:
+      type: string
+  cellphone:
+      type: string
+  birthdate:
+    type: string
+  email_sms:
+    type: boolean
+  whatsapp:
+    type: boolean
+  country:
+    type: string
+  city:
+    type: string
+  postal_code:
+    type: string
+  address:
+    type: string
+  number:
+    type: integer 
