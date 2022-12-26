@@ -1,3 +1,3 @@
 export interface BaseRepository<T> {
-    create(data: T): T
+    create(data: T): Promise<void>
 }

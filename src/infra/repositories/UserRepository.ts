@@ -1,13 +1,15 @@
+import { client, collectionAccess } from "../mongodb/MongoDBClient";
 import UserModel from "../../domain/entities/UserModel";
-import { Users } from "../../domain/user/mocks/UserMock";
 import { DefaultMockRepository } from "./DefaultMockRepository";
 
 
 
 export class UserRepository extends DefaultMockRepository<UserModel> {
-    public create(data: UserModel): UserModel {
-        Users.push(data);
-        return data;
+    public async create(data: UserModel): Promise<void> {
+        await client.connect();
+        const collection = await collectionAccess(client);
+
+        collection.insertOne(data);
     }
 
 }

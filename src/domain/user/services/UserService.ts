@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { inject, injectable } from "tsyringe";
-import { BaseRepository } from "@infra/repositories/BaseRepository"
+import { BaseRepository } from "../../../infra/repositories/BaseRepository"
 import UserModel from "../../entities/UserModel";
 import { IUserService } from "@userInterfaces/IUserService";
 
