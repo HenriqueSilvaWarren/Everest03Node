@@ -1,16 +1,16 @@
+import 'reflect-metadata';
 import { Request, Response } from 'express';
 import { IUserController } from '@controlInterfaces/IUserController';
 import status from 'http-status';
-import { MongoDBClient } from '../../infra/mongodb/MongoDBClient';
+import { IUserService } from '@userInterfaces/IUserService';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class GetUserController implements IUserController {
-    async handle(req: Request, res: Response): Promise<void> {
-        const client = new MongoDBClient('coiso');
-        const response = await client.query(
-            client.getCollection().find({}).toArray()
-        );
-        res.status(status.OK).json(response);
 
-        
+    constructor(@inject('UserService') private userService: IUserService) { }
+
+    async handle(req: Request, res: Response): Promise<void> {
+        res.status(status.OK).json(await this.userService.getUser());
     }
 }

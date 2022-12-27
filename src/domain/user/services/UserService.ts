@@ -9,6 +9,10 @@ export class UserService implements IUserService {
 
     constructor(@inject('UserRepository') private userRepository: BaseRepository<UserModel>) { }
 
+    getUser(): Promise<unknown> {
+        return this.userRepository.get();
+    }
+
     saveUser(object: Record<string, unknown>): void {
         const model = new UserModel(object);
 

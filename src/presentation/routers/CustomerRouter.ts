@@ -16,7 +16,7 @@ export class CustomerRouter {
     setup(): Router {
         this._router.post("/", validator(UserSchema), (req, res) => this.postUserController.handle(req, res),);
 
-        this._router.get("/", this.getUserController.handle,);
+        this._router.get("/", (req, res) => { this.getUserController.handle(req, res) },);
 
         return this._router;
     }

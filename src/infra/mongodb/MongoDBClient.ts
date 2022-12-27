@@ -1,12 +1,13 @@
 import { Db, MongoClient } from "mongodb";
+import process from "process";
 import 'reflect-metadata';
 
 export class MongoDBClient {
     private db: Db;
     private client: MongoClient;
     private collection: string;
-    private dbName = 'card08';
-    private url = "mongodb://localhost:27017";
+    private dbName = process.env.DB_NAME;
+    private url = process.env.DB_URL || '';
 
     constructor( collection: string) {
         this.collection = collection;

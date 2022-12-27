@@ -1,6 +1,9 @@
 import express from 'express';
 import { customContainer } from '../di';
 import { Routes } from './Routes';
+import dotenv from 'dotenv';
+
+dotenv.config({path: '../../variables.env'});
 
 const routes: Routes = customContainer.resolve(Routes);
 const app = express();

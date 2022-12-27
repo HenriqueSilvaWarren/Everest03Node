@@ -1,9 +1,10 @@
 import { GetUserController } from "../presentation/controllers/GetUserController"
 import { Request, Response } from 'express';
+import { customContainer } from "../di";
 
 describe('GetUserController', () => {
     it('Should call send to return Users to users', () => {
-        const controller = new GetUserController();
+        const controller = customContainer.resolve(GetUserController);
 
         const mockResponse: Response = {
             status: jest.fn(() => mockResponse),
