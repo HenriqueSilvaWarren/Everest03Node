@@ -1,16 +1,35 @@
-import { Collection, MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
+import 'reflect-metadata';
 
-const url = "mongodb://localhost:27017";
-export const client = new MongoClient(url);
-const dbName = 'card08';
+export class MongoDBClient {
+    private db: Db;
+    private client: MongoClient;
+    private collection: string;
+    private dbName = 'card08';
+    private url = "mongodb://localhost:27017";
 
-export async function collectionAccess(client: MongoClient): Promise<Collection> {
+    constructor( collection: string) {
+        this.collection = collection;
+        this.client = new MongoClient(this.url);
+        this.db = this.client.db(this.dbName)
+    }
 
-    console.log('Connected successfully to server');
-    const db = client.db(dbName);
-    const collection = db.collection('coiso');
+    public getCollection() {
+        return this.db.collection(this.collection);
+    }
 
-    return collection;
+    public async query(query: unknown) {
+        try {
+            this.client.connect();
+            return await query;
+        }
+        finally {
+            this.client.close()
+        }
+    }
 }
+
+
+
 
 

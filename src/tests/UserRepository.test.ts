@@ -1,6 +1,5 @@
 import UserModel from "../domain/entities/UserModel";
 import { UserRepository } from "../infra/repositories/UserRepository";
-import { Users } from "../domain/user/mocks/UserMock";
 
 describe('UserRepository', () => {
     describe('create', () => {
@@ -24,7 +23,6 @@ describe('UserRepository', () => {
             const result = repo.create(model);
 
             expect(result).toBe(model);
-            expect(model).toBe(Users[0]);
         })
     })
 });
