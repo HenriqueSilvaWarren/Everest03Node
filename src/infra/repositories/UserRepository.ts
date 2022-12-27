@@ -10,9 +10,8 @@ export class UserRepository extends DefaultMockRepository<UserModel> {
     }
 
     public get(): Promise<unknown> {
-        const client = new MongoDBClient('coiso');
-        return client.query(
-            client.getCollection().find({}).toArray()
+        return this.client.query(
+            this.client.getCollection().find({}).toArray()
         );
     }
 
