@@ -12,7 +12,7 @@ import { DocsService } from '../domain/docs/services/DocsService';
 import { DocsController } from '../presentation/controllers/DocsController';
 import { DocsRouter } from '../presentation/routers/DocsRouter';
 
-container.registerSingleton<BaseRepository<UserModel>>('UserRepository', UserRepository)
+container.registerSingleton<BaseRepository<UserModel>>('UserRepository', UserRepository);
 
 container.registerSingleton<IUserService>('UserService', UserService);
 

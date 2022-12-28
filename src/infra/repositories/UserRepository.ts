@@ -1,13 +1,25 @@
+import 'reflect-metadata';
+import { MongoDBClient } from "../mongodb/MongoDBClient";
 import UserModel from "../../domain/entities/UserModel";
-import { Users } from "../../domain/user/mocks/UserMock";
 import { DefaultMockRepository } from "./DefaultMockRepository";
-
-
-
 export class UserRepository extends DefaultMockRepository<UserModel> {
-    public create(data: UserModel): UserModel {
-        Users.push(data);
-        return data;
+    private client: MongoDBClient;
+    constructor() {
+        super();
+        this.client = new MongoDBClient('coiso');
+    }
+
+    public get(): Promise<unknown> {
+        return this.client.query(
+            this.client.getCollection().find({}).toArray()
+        );
+    }
+
+    public create(data: UserModel): void {
+        const collection = this.client.getCollection();
+        this.client.query(
+            collection.insertOne(data),
+        );
     }
 
 }

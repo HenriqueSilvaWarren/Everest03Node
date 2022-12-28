@@ -1,3 +1,4 @@
 export interface BaseRepository<T> {
-    create(data: T): T
+    get() : Promise<unknown>;
+    create(data: T): void;
 }

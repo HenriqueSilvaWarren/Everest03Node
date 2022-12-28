@@ -1,13 +1,16 @@
-import { Users } from '../../domain/user/mocks/UserMock';
+import 'reflect-metadata';
 import { Request, Response } from 'express';
 import { IUserController } from '@controlInterfaces/IUserController';
 import status from 'http-status';
-import YAML from 'yamljs';
+import { IUserService } from '@userInterfaces/IUserService';
+import { inject, injectable } from 'tsyringe';
 
-
+@injectable()
 export class GetUserController implements IUserController {
-    handle(req: Request, res: Response): void {
-        console.log(YAML.load('../../docs/references/user_object.yaml'))
-        res.status(status.OK).json(Users);
+
+    constructor(@inject('UserService') private userService: IUserService) { }
+
+    async handle(req: Request, res: Response): Promise<void> {
+        res.status(status.OK).json(await this.userService.getUser());
     }
 }
